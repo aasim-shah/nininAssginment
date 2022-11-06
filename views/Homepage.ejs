@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Ninin's Assignment</title>
+    <style>
+      td{
+        font-size: 16px;
+        font-weight: 400;
+      }
+    .border-b{
+      border: none;
+      outline: none;
+    }
+    .ml-10{
+      margin-left: 4rem;
+    }
+    .text-ninin{
+    color: #0065a1;
+  }
+  .bg-ninin{
+    background-color: #0066a17e;
+  }
+  .search-container{
+    position: relative;
+    border: 1px solid #0065a1;
+    height: 3.2rem;
+    padding: 0px 2rem;
+  }
+  .search-btn{
+    right: 8px;
+    top: 5px;
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    position: absolute !important;
+  }
+  .table-contianer{
+    width:96%;
+    margin: 0px auto;
+  }
+  
+@media only screen and (max-width: 450px) {
+  .text-sm{
+    font-size:20px ;
+
+  }
+  .w-sm{
+    width: 94% !important;
+  }
+  
+}
+        
+    </style>
+  </head>
+  <body class="">
+    <section id="input&search">
+        <div
+      class="d-flex justify-content-center align-items-center flex-column my-4"
+    >
+      <h2 class="text-sm text-ninin">Ninin's Music App</h2>
+      <div class="w-50 w-sm mx-auto my-4">
+      <form action="/search" method="post">
+        <div class=" mb-3">
+          <div class="input-group-append search-container d-flex  rounded-lg ">
+           
+          <input
+            type="text"
+            class="border-b"
+            name="searchTerm"
+            required
+            value="<%= searchTerm %>"
+            placeholder="Search For you Fav Artist / Song / Brand ...."
+            aria-label="Search For you Fav Artist / Song / Brand ...."
+            aria-describedby="button-addon2"
+          /> <button
+          class="btn search-btn btn-primary d-block   font-weight-bold text-light"
+          type="submit"
+          id="button-addon2"
+        >
+        <i class="fa-solid fa-magnifying-glass "></i>
+        </button>
+      </div>
+          <div class="d-flex flex-row mt-1 ml-10">
+            <input type="checkbox" id="checkbox" name="checkBox"  class="px-3 mt-2" />
+            <label class="text-primary  ml-2 mt-2 " for="checkbox"
+              > Include Album cover  ?
+            </label>
+          </div>
+        
+        </div>
+
+
+    </form>
+      </div>
+    </div>
+    </section>
+
+    <% if(data){ %>
+    <section id="show_results">
+        <div class="alert-primary font-weight-bold table-contianer  w-sm  pt-1 pb-3 px-2 rounded-lg">
+            <p  class="text-center">Total Results   : (<% if(data.resultCount > 10){ %> <small>10</small> <% } %><% if(data.resultCount < 10){ %> <%= data.resultCount %> <% } %>  )</p>
+            <table class="table bg-ninin">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <% if(checkBox){ %>
+                    <th scope="col">Cover</th>
+                    <%}%>
+                    <th scope="col">Artist Name </th>
+                  <th scope="col">Song Name </th>
+                </tr>
+              </thead>
+           
+              <% data.results.forEach((item , index) => { %>
+                <% if(index < 10 ) { %>
+                  <tbody>
+                    <tr>
+                      <td scope="row"><%= index %></td>
+                      <% if(checkBox){ %>
+                        <td >
+                          <img src=" <%= item.artworkUrl100 %>" style="width: 70px ; height: 70px;" alt="">
+                        </td>
+                        <%}%>
+                        <td><%= item.artistName %></td>
+                        <td><%= item.trackName %></td>
+                    </tr>
+                  </tbody>
+                  <% } %>
+                  <% }) %>
+                </table>
+        </div>
+        
+    </section>
+
+    <% } %>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  </body>
+</html>
+
